@@ -18,8 +18,7 @@ def checkout(skus):
     for item, count in itemCounts.items():
 
         prices = itemPrices[item]
-        for n, price in prices.items():
-            print(n, price)
+        for n, price in reversed(prices.items()):
 
             if count >= n:
                 offerCount = count/n
@@ -59,6 +58,7 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
 
