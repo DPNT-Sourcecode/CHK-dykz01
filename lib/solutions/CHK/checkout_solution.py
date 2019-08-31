@@ -91,8 +91,13 @@ class TestCheckOut(unittest.TestCase):
     def test_specialOfferCombinationsMinimisePrice(self):
         self.assertEqual(checkout("AAAAAAAAA"), checkout("AAAAA") + checkout("AAA") + checkout("A"))
 
+    def test_2ESpecialOfferGivesOneFreeB(self):
+        self.assertEqual(checkout("EE"), checkout("E") + checkout("E"))
+        self.assertEqual(checkout("EEB"), checkout("E") + checkout("E"))
+
 
 
 if __name__ == '__main__':
     unittest.main()
+
 
