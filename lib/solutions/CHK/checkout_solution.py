@@ -88,6 +88,11 @@ class TestCheckOut(unittest.TestCase):
     def test_mixedItemsAreSumed(self):
         self.assertEqual(checkout("ABCCABADDA"), checkout("BB") + checkout("AAA") + checkout("A") + checkout("CC") + checkout("DD"))
 
+    def test_specialOfferCombinationsMinimisePrice(self):
+        self.assertEqual(checkout("AAAAAAAAA"), checkout("AAAAA") + checkout("AAA") + checkout("A"))
+
+
 
 if __name__ == '__main__':
     unittest.main()
+
