@@ -1,4 +1,5 @@
 import collections
+import itertools
 import string
 import unittest
 
@@ -71,7 +72,7 @@ def removeFreeItems(itemCounts):
     for item, count in freeItems.items():
         itemCounts[item] = max(0, itemCounts[item] - count)
 
-def calculateItemCost(itemCounts):
+def calculateItemCosts(itemCounts):
     itemPrices = getItemPrices()
 
     totalCost = 0
@@ -94,7 +95,7 @@ def checkout(skus):
         return -1
 
     removeFreeItems(itemCounts)
-    return calculateItemCost(itemCounts)
+    return calculateItemCosts(itemCounts)
 
 class TestCheckOut(unittest.TestCase):
     def test_invalidSKUItemReturnsMinus1(self):
@@ -190,9 +191,14 @@ class TestCheckOut(unittest.TestCase):
     def test_4USpecialOfferGivesOneFreeU(self):
         self.assertEqual(checkout("UUUU"), checkout("UUU"))
 
+    def test_groupDiscount(self):
+        for combination in itertools.combinations("STXYZ", 3):
+            self.assertEqual(checkout("".join(combination)), 45)
+
 
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
