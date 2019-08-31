@@ -1,4 +1,5 @@
 import collections
+import string
 import unittest
 
 # noinspection PyUnusedLocal
@@ -12,6 +13,10 @@ def checkout(skus):
 
     itemCounts = collections.defaultdict(int)
     for item in skus:
+        invalidItem = not item in string.ascii_uppercase
+        if invalidItem:
+            return -1
+
         itemCounts[item] += 1
 
     totalCost = 0
@@ -75,13 +80,11 @@ class TestCheckOut(unittest.TestCase):
 
     def test_mixedItemsAreSumed(self):
         self.assertEqual(checkout("ABCCABADDA"), checkout("BB") + checkout("AAA") + checkout("A") + checkout("CC") + checkout("DD"))
-    §dd
-
-
 
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
 
