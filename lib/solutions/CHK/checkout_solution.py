@@ -16,7 +16,7 @@ def checkout(skus):
     itemPrices['H'] = {1:10, 5:45, 10:80}
     itemPrices['I'] = {1:35}
     itemPrices['J'] = {1:60}
-    itemPrices['K'] = {1:80, 2:150}
+    itemPrices['K'] = {1:70, 2:120}
     itemPrices['L'] = {1:90}
     itemPrices['M'] = {1:15}
     itemPrices['N'] = {1:40}
@@ -24,7 +24,7 @@ def checkout(skus):
     itemPrices['P'] = {1:50, 5:200}
     itemPrices['Q'] = {1:30, 3:80}
     itemPrices['R'] = {1:50}
-    itemPrices['S'] = {1:30}
+    itemPrices['S'] = {1:20}
     itemPrices['T'] = {1:20}
     itemPrices['U'] = {1:40}
     itemPrices['V'] = {1:50, 2:90, 3:130}
@@ -93,7 +93,7 @@ class TestCheckOut(unittest.TestCase):
         self.assertEqual(checkout('H'), 10)
         self.assertEqual(checkout('I'), 35)
         self.assertEqual(checkout('J'), 60)
-        self.assertEqual(checkout('K'), 80)
+        self.assertEqual(checkout('K'), 70)
         self.assertEqual(checkout('L'), 90)
         self.assertEqual(checkout('M'), 15)
         self.assertEqual(checkout('N'), 40)
@@ -101,7 +101,7 @@ class TestCheckOut(unittest.TestCase):
         self.assertEqual(checkout('P'), 50)
         self.assertEqual(checkout('Q'), 30)
         self.assertEqual(checkout('R'), 50)
-        self.assertEqual(checkout('S'), 30)
+        self.assertEqual(checkout('S'), 20)
         self.assertEqual(checkout('T'), 20)
         self.assertEqual(checkout('U'), 40)
         self.assertEqual(checkout('V'), 50)
@@ -116,7 +116,7 @@ class TestCheckOut(unittest.TestCase):
         self.assertEqual(checkout('BB'), 45)
         self.assertEqual(checkout("HHHHH"), 45)
         self.assertEqual(checkout("HHHHHHHHHH"), 80)
-        self.assertEqual(checkout("KK"), 150)
+        self.assertEqual(checkout("KK"), 120)
         self.assertEqual(checkout("PPPPP"), 200)
         self.assertEqual(checkout("QQQ"), 80)
         self.assertEqual(checkout("VV"), 90)
@@ -171,6 +171,7 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
 
