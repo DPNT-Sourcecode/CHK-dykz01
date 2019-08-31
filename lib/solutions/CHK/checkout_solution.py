@@ -27,6 +27,11 @@ def checkout(skus):
     itemPrices['S'] = {1:30}
     itemPrices['T'] = {1:20}
     itemPrices['U'] = {1:40}
+    itemPrices['V'] = {1:50, 2:90, 3:130}
+    itemPrices['W'] = {1:20}
+    itemPrices['X'] = {1:90}
+    itemPrices['Y'] = {1:10}
+    itemPrices['Z'] = {1:50}
 
     itemFreebies = {}
     itemFreebies['E'] = {2:'B'}
@@ -99,6 +104,11 @@ class TestCheckOut(unittest.TestCase):
         self.assertEqual(checkout('S'), 30)
         self.assertEqual(checkout('T'), 20)
         self.assertEqual(checkout('U'), 40)
+        self.assertEqual(checkout('V'), 50)
+        self.assertEqual(checkout('W'), 20)
+        self.assertEqual(checkout('X'), 90)
+        self.assertEqual(checkout('Y'), 10)
+        self.assertEqual(checkout('Z'), 50)
 
     def test_multipleItemOffers(self):
         self.assertEqual(checkout('AAA'), 130)
@@ -109,6 +119,8 @@ class TestCheckOut(unittest.TestCase):
         self.assertEqual(checkout("KK"), 150)
         self.assertEqual(checkout("PPPPP"), 200)
         self.assertEqual(checkout("QQQ"), 80)
+        self.assertEqual(checkout("VV"), 90)
+        self.assertEqual(checkout("VVV"), 130)
 
     def test_multipleNonOfferItemsAreMultiplesOfSingleItemPrice(self):
         self.assertEqual(checkout('CC'), checkout('C') * 2)
@@ -152,13 +164,14 @@ class TestCheckOut(unittest.TestCase):
     def test_3RSpecialOfferGivesOneFreeQ(self):
         self.assertEqual(checkout("RRRQ"), checkout("RRR"))
 
-    def test_4USpecialOfferGivesOneFreeQ(self):
-        self.assertEqual(checkout("QQQQ"), checkout("QQQ"))
+    def test_4USpecialOfferGivesOneFreeU(self):
+        self.assertEqual(checkout("UUUU"), checkout("UUU"))
 
 
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
 
