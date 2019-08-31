@@ -73,15 +73,15 @@ def removeFreeItems(itemCounts):
     itemFreebies = getItemFreebies()
 
     freeItems = {}
-    for item in itemCounts:
-        itemFreebe = itemFreebies.get(item, {})
-        for n, freeItem in itemFreebe.items():
-            count = itemCounts[item]
-            freebeeCount = int(count/n)
+    for item, count in itemCounts.items():
+        freebies = itemFreebies.get(item, {})
+
+        for itemsNeededForFreebe, freeItem in freebies.items():
+            freebeeCount = int(count/itemsNeededForFreebe)
             freeItems[freeItem] = freebeeCount
 
-    for item, count in freeItems.items():
-        itemCounts[item] = max(0, itemCounts[item] - count)
+    for freeItem, count in freeItems.items():
+        itemCounts[freeItem] = max(0, itemCounts[freeItem] - count)
 
 def applyItemGroupings(itemCounts):
     groupItemPrices = getGroupItemPrices()
@@ -239,6 +239,7 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
 
