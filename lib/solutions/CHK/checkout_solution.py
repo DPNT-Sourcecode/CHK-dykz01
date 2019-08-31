@@ -15,6 +15,7 @@ def checkout(skus):
 
     itemFreebies = {}
     itemFreebies['E'] = {2:'B'}
+    itemFreebies['F'] = {3:'F'}
 
     itemCounts = collections.defaultdict(int)
     for item in skus:
@@ -118,10 +119,14 @@ class TestCheckOut(unittest.TestCase):
 
     def test_3FSpecialOfferGivesOneFreeF(self):
         self.assertEqual(checkout("FFF"), checkout("F") * 2)
+        self.assertEqual(checkout("FFFFF"), checkout("F") * 4)
+        self.assertEqual(checkout("FFFFFF"), checkout("F") * 4)
+
 
 
 
 
 if __name__ == '__main__':
     unittest.main()
+
 
