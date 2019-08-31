@@ -30,10 +30,9 @@ def checkout(skus):
             count = itemCounts[item]
             freebeeCount = int(count/n)
             freeItems[freeItem] = freebeeCount
-            print(freeItems,skus)
 
     for item, count in freeItems.items():
-        itemCounts[item] = min(0, itemCounts[item] - count)
+        itemCounts[item] = max(0, itemCounts[item] - count)
 
     totalCost = 0
     for item, count in itemCounts.items():
@@ -109,15 +108,10 @@ class TestCheckOut(unittest.TestCase):
     def test_2ESpecialOfferGivesOneFreeB(self):
         self.assertEqual(checkout("EE"), checkout("E") + checkout("E"))
         self.assertEqual(checkout("EEB"), checkout("E") + checkout("E"))
-
+        self.assertEqual(checkout("EEBEE"), checkout("E") * 4)
+        self.assertEqual(checkout("EEBEEB"), checkout("E") * 4)
+        self.assertEqual(checkout("EEBEEBB"), checkout("E") * 4 + checkout("B"))
 
 
 if __name__ == '__main__':
     unittest.main()
-
-
-
-
-
-
-
