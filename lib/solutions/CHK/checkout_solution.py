@@ -61,7 +61,7 @@ def generateItemCounts(skus):
     itemCounts = collections.defaultdict(int)
     for item in skus:
 
-        invalidItem = not item in string.ascii_uppercase
+        invalidItem = item not in string.ascii_uppercase
         if invalidItem:
             raise ValueError
         else:
@@ -85,9 +85,9 @@ def removeFreeItems(itemCounts):
 
 def applyItemGroupings(itemCounts):
     groupItemPrices = getGroupItemPrices()
-    groups = sorted(list(groupItemPrices.keys()), key = lambda group: groupItemPrices[group][0], reverse=True)
+    groupsByLargestSaving = sorted(list(groupItemPrices.keys()), key = lambda group: groupItemPrices[group][0], reverse=True)
 
-    for group in groups:
+    for group in groupsByLargestSaving:
 
         groupCounts = set()
         for groupItem in group:
@@ -231,10 +231,15 @@ class TestCheckOut(unittest.TestCase):
     def test_maximumGroupDiscount(self):
         self.assertEqual(checkout("STXYZ"), 45 + checkout("XY"))
 
+    def test_multipleGroupDiscountsAreGiven(self):
+        self.assertEqual(checkout("STXYZTYX"), 90 + checkout("XY"))
+
+
 
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
 
