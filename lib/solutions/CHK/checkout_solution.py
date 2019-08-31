@@ -31,6 +31,10 @@ def checkout(skus):
             freebeeCount = int(count/n)
             freeItems[freeItem] = freebeeCount
 
+    print(freeItems)
+    for item, count in freeItems.items():
+        itemCounts[item] = min(0, itemCounts[item] - count)
+
     totalCost = 0
     for item, count in itemCounts.items():
 
@@ -110,6 +114,7 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
 
