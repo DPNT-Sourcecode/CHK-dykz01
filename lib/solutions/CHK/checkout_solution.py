@@ -68,9 +68,17 @@ class TestCheckOut(unittest.TestCase):
     def test_mixedBOffers(self):
         self.assertEqual(checkout("BBB"), checkout("BB") + checkout("B"))
 
+    def test_mixedOffsers(self):
+        self.assertEqual(checkout("ABABA"), checkout("BB") + checkout("AAA"))
+
+    def test_mixedItems(self):
+        self.assertEqual(checkout("ABCCABADDA"), checkout("BB") + checkout("AAA") + checkout("A") + checkout("CC") + checkout("DD"))
+
+
 
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
