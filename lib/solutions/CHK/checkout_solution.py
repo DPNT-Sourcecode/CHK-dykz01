@@ -92,7 +92,7 @@ def applyItemGroupings(itemCounts):
     for group in groupsByLargestSaving:
 
         groupCounts = set()
-        for groupItem in group:
+        for groupItem in set(group):
             groupCounts.add(itemCounts[groupItem])
 
         groupCount = min(groupCounts)
@@ -244,3 +244,4 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
