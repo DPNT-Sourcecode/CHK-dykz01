@@ -96,7 +96,6 @@ def applyItemGroupings(itemCounts):
 
         minItem = min(groupCounts.keys(), key = lambda v: groupCounts[v])
         groupCount = int(groupCounts[minItem]/group.count(minItem))
-        print(group, minItem, groupCount, groupCounts)
         itemCounts[group] = groupCount
 
         for groupItem in group:
@@ -244,6 +243,7 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
 
