@@ -36,6 +36,14 @@ def getItemPrices():
 
     return itemPrices
 
+def getGroupItemPrices(self):
+    groupPrices = {}
+
+    for combination in itertools.combinations("STXYZ", 3):
+        groupPrices["".join(combination)] = {1:45}
+
+    return groupPrices
+
 def getItemFreebies():
     itemFreebies = {}
     itemFreebies['E'] = {2:'B'}
@@ -193,12 +201,14 @@ class TestCheckOut(unittest.TestCase):
 
     def test_groupDiscount(self):
         for combination in itertools.combinations("STXYZ", 3):
+            print(combination)
             self.assertEqual(checkout("".join(combination)), 45)
 
 
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
 
