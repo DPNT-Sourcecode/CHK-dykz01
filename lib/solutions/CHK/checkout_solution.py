@@ -99,8 +99,8 @@ def applyItemGroupings(itemCounts):
                     groupCounts[groupItem] += 1
                     itemCounts[groupItem] -= 1
                 else:
+                    print("\t",itemCounts, groupCounts)
                     itemCounts.update(**groupCounts)
-                    print("\t",itemCounts)
                     break
             else:
                 itemCounts[group] += 1
@@ -257,6 +257,7 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
 
