@@ -20,6 +20,10 @@ def checkout(skus):
     itemPrices['L'] = {1:90}
     itemPrices['M'] = {1:15}
     itemPrices['N'] = {1:40}
+    itemPrices['O'] = {1:10}
+    itemPrices['P'] = {1:50, 5:200}
+    itemPrices['Q'] = {1:30, 3:80}
+    itemPrices['R'] = {1:50}
 
     itemFreebies = {}
     itemFreebies['E'] = {2:'B'}
@@ -83,15 +87,20 @@ class TestCheckOut(unittest.TestCase):
         self.assertEqual(checkout('L'), 90)
         self.assertEqual(checkout('M'), 15)
         self.assertEqual(checkout('N'), 40)
+        self.assertEqual(checkout('O'), 10)
+        self.assertEqual(checkout('P'), 50)
+        self.assertEqual(checkout('Q'), 30)
+        self.assertEqual(checkout('R'), 50)
 
-    def test_3AItemsMatchesSpecialOfferPrice(self):
+    def test_multipleItemOffers(self):
         self.assertEqual(checkout('AAA'), 130)
-
-    def test_5AItemsMatchesSpecialOfferPrice(self):
         self.assertEqual(checkout('AAAAA'), 200)
-
-    def test_2BItemsMatchesSpecialOfferPrice(self):
         self.assertEqual(checkout('BB'), 45)
+        self.assertEqual(checkout("HHHHH"), 45)
+        self.assertEqual(checkout("HHHHHHHHHH"), 80)
+        self.assertEqual(checkout("KK"), 150)
+        self.assertEqual(checkout("PPPPP"), 200)
+        self.assertEqual(checkout("QQQ"), 80)
 
     def test_multipleNonOfferItemsAreMultiplesOfSingleItemPrice(self):
         self.assertEqual(checkout('CC'), checkout('C') * 2)
@@ -132,15 +141,7 @@ class TestCheckOut(unittest.TestCase):
     def test_3NSpecialOfferGivesOneFreeM(self):
         self.assertEqual(checkout("NNNM"), checkout("NNN"))
 
-    def test_5HMatchesSpecialOfferPrice(self):
-        self.assertEqual(checkout("HHHHH"), 45)
-
-    def test_10HMatchesSpecialOfferPrice(self):
-        self.assertEqual(checkout("HHHHHHHHHH"), 80)
-
-    def test_2KMatchesSpecialOfferPrice(self):
-        self.assertEqual(checkout("KK"), 150) 
-
 if __name__ == '__main__':
     unittest.main()
+
 
