@@ -29,7 +29,7 @@ def checkout(skus):
 
 
 class TestCheckOut(unittest.TestCase):
-    def test_emptySKU(self):
+    def test_emptySKUCostsNothing(self):
         self.assertEqual(checkout(""), 0)
 
     def test_singleAPrice(self):
@@ -44,25 +44,25 @@ class TestCheckOut(unittest.TestCase):
     def test_singleDPrice(self):
         self.assertEqual(checkout('D'), 15)
 
-    def test_specialOfferAPriceOnly(self):
+    def test_3AItemsMatchesSpecialOfferPrice(self):
         self.assertEqual(checkout('AAA'), 130)
 
-    def test_specialOfferBPriceOnly(self):
+    def test_2BItemsMatchesSpecialOfferPrice(self):
         self.assertEqual(checkout('BB'), 45)
 
-    def test_mixedSingleItems(self):
+    def test_multipleNonOfferItemsAreMultiplesOfSingleItemPrice(self):
+        self.assertEqual(checkout('CC'), checkout('C') * 2)
+        self.assertEqual(checkout('DD'), checkout('D') * 2)
+
+    def test_mixedSingleItemsAreSumOfIndividualPrices(self):
         self.assertEqual(checkout("BADC"), checkout("A") + checkout("B") + checkout("C") + checkout("D"))
 
-    def test_multipleASpecialOffsers(self):
+    def test_multipleSpecialOffserAreMultipleOfSpecialOfferPrice(self):
         self.assertEqual(checkout("AAAAAAAAA"), checkout("AAA") * 3)
-
-    def test_multipleBSpecialOffsers(self):
         self.assertEqual(checkout("BBBB"), checkout("BB") * 2)
 
-    def test_mixedAOffers(self):
+    def test_mixedOffersAreSumOfSpecialAndIndividualPrices(self):
         self.assertEqual(checkout("AAAAAAA"), checkout("AAA") * 2 + checkout("A"))
-
-    def test_multipleBSpecialOffsers(self):
         self.assertEqual(checkout("BBBB"), checkout("BB") * 2)
 
     def test_mixedBOffers(self):
@@ -79,6 +79,7 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
 
