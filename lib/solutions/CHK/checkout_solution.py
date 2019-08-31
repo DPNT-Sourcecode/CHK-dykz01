@@ -93,28 +93,19 @@ def applyItemGroupings(itemCounts):
         while True:
             groupCounts = collections.defaultdict(int)
 
-            print(group)
             for groupItem in group:
                 if itemCounts[groupItem]:
                     groupCounts[groupItem] += 1
                     itemCounts[groupItem] -= 1
                 else:
-                    print("\t",itemCounts, groupCounts)
-                    itemCounts.update(groupCounts)
-                    print("\t",itemCounts)
+                    for item, count in groupCounts.items():
+                        itemCounts[item] += count
                     break
             else:
                 itemCounts[group] += 1
                 continue
 
             break
-
-#         minItem = min(groupCounts.keys(), key = lambda v: groupCounts[v])
-#         groupCount = int(groupCounts[minItem]/group.count(minItem))
-#         itemCounts[group] = groupCount
-# 
-#         for groupItem in group:
-#             itemCounts[groupItem] -= groupCount
 
 def calculateItemCosts(itemCounts):
     itemPrices = getItemPrices()
@@ -144,7 +135,6 @@ def checkout(skus):
 
     removeFreeItems(itemCounts)
     applyItemGroupings(itemCounts)
-    print(itemCounts)
 
     return calculateItemCosts(itemCounts)
 
@@ -248,16 +238,17 @@ class TestCheckOut(unittest.TestCase):
 
     def test_maximumGroupDiscount(self):
         self.assertEqual(checkout("STXYZ"), 45 + checkout("XY"))
+        self.assertEqual(checkout("SSSX"), 45 + checkout("X"))
 
     def test_multipleGroupDiscountsAreGiven(self):
-        print(checkout("STXYZTYX"))
-#         self.assertEqual(checkout("STXYZTYX"), 90 + checkout("XX"))
+        self.assertEqual(checkout("STXYZTYX"), 90 + checkout("XX"))
 
 
 
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
 
