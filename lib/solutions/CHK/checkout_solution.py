@@ -12,6 +12,9 @@ def checkout(skus):
     itemPrices['D'] = {1:15}
     itemPrices['E'] = {1:40}
 
+    itemFreebies = {}
+    itemFreebies['E'] = {2:'B'}
+
     itemCounts = collections.defaultdict(int)
     for item in skus:
         invalidItem = not item in string.ascii_uppercase
@@ -19,6 +22,7 @@ def checkout(skus):
             return -1
 
         itemCounts[item] += 1
+
 
     totalCost = 0
     for item, count in itemCounts.items():
@@ -99,5 +103,6 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
