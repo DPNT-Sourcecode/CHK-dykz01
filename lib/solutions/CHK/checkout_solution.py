@@ -44,11 +44,15 @@ class TestCheckOut(unittest.TestCase):
         self.assertEqual(checkout('BB'), 45)
 
     def test_mixedSingleItems(self):
-        self.assertEqual(checkout("ABCD"), checkout("A") + checkout("B") + checkout("C") + checkout("D"))
+        self.assertEqual(checkout("BADC"), checkout("A") + checkout("B") + checkout("C") + checkout("D"))
+
+    def test_multipleASpecialOffsers(self):
+        self.assertEqual(checkout("AAAAAAAAA"), checkout("AAA") * 3)
 
 
 
 
 if __name__ == '__main__':
     unittest.main()
+
 
