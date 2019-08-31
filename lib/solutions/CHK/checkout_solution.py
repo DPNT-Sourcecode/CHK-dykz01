@@ -15,6 +15,9 @@ def checkout(skus):
     itemPrices['G'] = {1:20}
     itemPrices['H'] = {1:10, 5:45, 10:80}
     itemPrices['I'] = {1:35}
+    itemPrices['J'] = {1:60}
+    itemPrices['K'] = {1:80, 2:150}
+    itemPrices['K'] = {1:90}
 
     itemFreebies = {}
     itemFreebies['E'] = {2:'B'}
@@ -62,32 +65,19 @@ class TestCheckOut(unittest.TestCase):
     def test_emptySKUCostsNothing(self):
         self.assertEqual(checkout(""), 0)
 
-    def test_singleAPrice(self):
+    def test_singlePrice(self):
         self.assertEqual(checkout('A'), 50)
-
-    def test_singleBPrice(self):
         self.assertEqual(checkout('B'), 30)
-
-    def test_singleCPrice(self):
         self.assertEqual(checkout('C'), 20)
-
-    def test_singleDPrice(self):
         self.assertEqual(checkout('D'), 15)
-
-    def test_singleEPrice(self):
         self.assertEqual(checkout('E'), 40)
-
-    def test_singleFPrice(self):
         self.assertEqual(checkout('F'), 10)
-
-    def test_singleGPrice(self):
         self.assertEqual(checkout('G'), 20)
-
-    def test_singleHPrice(self):
         self.assertEqual(checkout('H'), 10)
-
-    def test_singleHPrice(self):
         self.assertEqual(checkout('I'), 35)
+        self.assertEqual(checkout('J'), 60)
+        self.assertEqual(checkout('K'), 80)
+        self.assertEqual(checkout('L'), 90)
 
     def test_3AItemsMatchesSpecialOfferPrice(self):
         self.assertEqual(checkout('AAA'), 130)
@@ -140,12 +130,8 @@ class TestCheckOut(unittest.TestCase):
     def test_10HMatchesSpecialOfferPrice(self):
         self.assertEqual(checkout("HHHHHHHHHH"), 80)
 
-
-
+    def test_2KMatchesSpecialOfferPrice(self):
+        self.assertEqual(checkout("KK"), 150) 
 
 if __name__ == '__main__':
     unittest.main()
-
-
-
-
