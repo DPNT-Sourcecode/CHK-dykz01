@@ -37,10 +37,13 @@ def getItemPrices():
     return itemPrices
 
 def getGroupItemPrices(self):
-    groupPrices = {}
+    itemPrices = getItemPrices()
 
+    groupPrices = {}
     for combination in itertools.combinations("STXYZ", 3):
-        groupPrices["".join(combination)] = {1:45}
+        regularCost = sum(itemPrices[item][1] for item in combination)
+        saving = regularCost - 45
+        groupPrices["".join(combination)] = {1:45, 0:saving}
 
     return groupPrices
 
@@ -80,9 +83,14 @@ def removeFreeItems(itemCounts):
     for item, count in freeItems.items():
         itemCounts[item] = max(0, itemCounts[item] - count)
 
+def applyItemGroupings(itemCounts, itemPrices):
+    print(getGroupItemPrices())
+
+
 def calculateItemCosts(itemCounts):
     itemPrices = getItemPrices()
 
+    applyItemGroupings()
     totalCost = 0
     for item, count in itemCounts.items():
 
@@ -208,3 +216,4 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
