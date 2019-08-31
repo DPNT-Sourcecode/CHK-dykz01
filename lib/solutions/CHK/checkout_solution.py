@@ -16,8 +16,20 @@ class TestCheckOut(unittest.TestCase):
     def test_singleBPrice(self):
         self.assertEqual(checkout('B'), 30)
 
+    def test_singleCPrice(self):
+        self.assertEqual(checkout('C'), 20)
+
+    def test_singleDPrice(self):
+        self.assertEqual(checkout('D'), 15)
+
+    def test_specialOfferAPriceOnly(self):
+        self.assertEqual(checkout('AAA'), 130)
+
+
+
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
