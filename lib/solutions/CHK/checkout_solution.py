@@ -16,10 +16,15 @@ def checkout(skus):
 
     totalCost = 0
     for item, count in itemCounts.items():
-        if count in itemPrices[item]:
-            totalCost += itemPrices[item][count]
-        else:
-            totalCost += count * itemPrices[item][1]
+
+        prices = itemPrices[item]
+        for n, price in prices.items():
+            print(n, price)
+
+            if count >= n:
+                offerCount = count/n
+                totalCost += offerCount * price
+                count -= offerCount * n
 
     return totalCost
 
@@ -54,5 +59,6 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
