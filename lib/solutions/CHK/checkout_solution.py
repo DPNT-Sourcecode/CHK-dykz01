@@ -45,14 +45,23 @@ def getItemFreebies():
 
     return itemFreebies
 
-def checkout(skus):
+def generateItemCounts(skus):
     itemCounts = collections.defaultdict(int)
     for item in skus:
+
         invalidItem = not item in string.ascii_uppercase
         if invalidItem:
-            return -1
+            raise ValueError
+        else:
+            itemCounts[item] += 1
 
-        itemCounts[item] += 1
+    return itemCounts
+
+def checkout(skus):
+    try:
+        itemCounts = generateItemCounts(skus)
+    except ValueError:
+        return -1
 
     itemFreebies = getItemFreebies()
 
@@ -180,3 +189,4 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
