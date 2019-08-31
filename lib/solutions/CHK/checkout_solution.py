@@ -10,6 +10,7 @@ def checkout(skus):
     itemPrices['B'] = {1:30, 2:45}
     itemPrices['C'] = {1:20}
     itemPrices['D'] = {1:15}
+    itemPrices['E'] = {1:40}
 
     itemCounts = collections.defaultdict(int)
     for item in skus:
@@ -54,6 +55,9 @@ class TestCheckOut(unittest.TestCase):
     def test_singleDPrice(self):
         self.assertEqual(checkout('D'), 15)
 
+    def test_singleEPrice(self):
+        self.assertEqual(checkout('E'), 40)
+
     def test_3AItemsMatchesSpecialOfferPrice(self):
         self.assertEqual(checkout('AAA'), 130)
 
@@ -84,6 +88,7 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
 
