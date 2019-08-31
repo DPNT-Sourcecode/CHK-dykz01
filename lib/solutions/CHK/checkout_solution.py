@@ -247,12 +247,13 @@ class TestCheckOut(unittest.TestCase):
         self.assertEqual(checkout("STXYZ"), 45 + checkout("XY"))
 
     def test_multipleGroupDiscountsAreGiven(self):
-        print(checkout("XY"))
-#         self.assertEqual(checkout("STXYZTYX"), 90 + checkout("XY"))
+        print(checkout("STXYZTYX"))
+#         self.assertEqual(checkout("STXYZTYX"), 90 + checkout("XX"))
 
 
 
 
 if __name__ == '__main__':
     unittest.main()
+
 
