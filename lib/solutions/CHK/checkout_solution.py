@@ -13,6 +13,8 @@ def checkout(skus):
     itemPrices['E'] = {1:40}
     itemPrices['F'] = {1:10}
     itemPrices['G'] = {1:20}
+    itemPrices['H'] = {1:10, 5:45, 10:80}
+    itemPrices['I'] = {1:35}
 
     itemFreebies = {}
     itemFreebies['E'] = {2:'B'}
@@ -81,6 +83,12 @@ class TestCheckOut(unittest.TestCase):
     def test_singleGPrice(self):
         self.assertEqual(checkout('G'), 20)
 
+    def test_singleHPrice(self):
+        self.assertEqual(checkout('H'), 10)
+
+    def test_singleHPrice(self):
+        self.assertEqual(checkout('I'), 35)
+
     def test_3AItemsMatchesSpecialOfferPrice(self):
         self.assertEqual(checkout('AAA'), 130)
 
@@ -126,12 +134,18 @@ class TestCheckOut(unittest.TestCase):
         self.assertEqual(checkout("FFFFF"), checkout("F") * 4)
         self.assertEqual(checkout("FFFFFF"), checkout("F") * 4)
 
+    def test_5HMatchesSpecialOfferPrice(self):
+        self.assertEqual(checkout("HHHHH"), 45)
+
+    def test_10HMatchesSpecialOfferPrice(self):
+        self.assertEqual(checkout("HHHHHHHHHH"), 80)
 
 
 
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
 
