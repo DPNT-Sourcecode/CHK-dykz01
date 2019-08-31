@@ -4,7 +4,7 @@ import unittest
 
 # noinspection PyUnusedLocal
 # skus = unicode string
-def checkout(skus):
+def getItemPrices():
     itemPrices = {}
     itemPrices['A'] = {1:50, 3:130, 5:200}
     itemPrices['B'] = {1:30, 2:45}
@@ -33,6 +33,9 @@ def checkout(skus):
     itemPrices['Y'] = {1:20}
     itemPrices['Z'] = {1:21}
 
+    return itemPrices
+
+def getItemFreebies():
     itemFreebies = {}
     itemFreebies['E'] = {2:'B'}
     itemFreebies['F'] = {3:'F'}
@@ -40,6 +43,9 @@ def checkout(skus):
     itemFreebies['R'] = {3:'Q'}
     itemFreebies['U'] = {4:'U'}
 
+    return itemFreebies
+
+def checkout(skus):
     itemCounts = collections.defaultdict(int)
     for item in skus:
         invalidItem = not item in string.ascii_uppercase
@@ -47,6 +53,8 @@ def checkout(skus):
             return -1
 
         itemCounts[item] += 1
+
+    itemFreebies = getItemFreebies()
 
     freeItems = {}
     for item in itemCounts:
@@ -59,6 +67,7 @@ def checkout(skus):
     for item, count in freeItems.items():
         itemCounts[item] = max(0, itemCounts[item] - count)
 
+    itemPrices = getItemPrices()
     totalCost = 0
     for item, count in itemCounts.items():
 
@@ -171,9 +180,3 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-
-
-
-
-
