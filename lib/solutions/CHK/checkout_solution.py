@@ -89,7 +89,7 @@ def applyItemGroupings(itemCounts):
     groupsByLargestSaving = sorted(list(groupItemPrices.keys()), key = lambda group: groupItemPrices[group][0], reverse=True)
 
     for group in groupsByLargestSaving:
-        print
+
         while True:
             groupCounts = collections.defaultdict(int)
 
@@ -100,7 +100,8 @@ def applyItemGroupings(itemCounts):
                     itemCounts[groupItem] -= 1
                 else:
                     print("\t",itemCounts, groupCounts)
-                    itemCounts.update(**groupCounts)
+                    itemCounts.update(groupCounts)
+                    print("\t",itemCounts)
                     break
             else:
                 itemCounts[group] += 1
@@ -117,7 +118,7 @@ def applyItemGroupings(itemCounts):
 
 def calculateItemCosts(itemCounts):
     itemPrices = getItemPrices()
-    itemPrices.update(**getGroupItemPrices())
+    itemPrices.update(getGroupItemPrices())
 
     totalCost = 0
     for item, count in itemCounts.items():
@@ -257,6 +258,7 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
 
