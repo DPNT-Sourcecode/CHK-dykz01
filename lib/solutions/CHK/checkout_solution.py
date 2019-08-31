@@ -17,11 +17,14 @@ def checkout(skus):
     itemPrices['I'] = {1:35}
     itemPrices['J'] = {1:60}
     itemPrices['K'] = {1:80, 2:150}
-    itemPrices['K'] = {1:90}
+    itemPrices['L'] = {1:90}
+    itemPrices['M'] = {1:15}
+    itemPrices['N'] = {1:40}
 
     itemFreebies = {}
     itemFreebies['E'] = {2:'B'}
     itemFreebies['F'] = {3:'F'}
+    itemFreebies['N'] = {3:'M'}
 
     itemCounts = collections.defaultdict(int)
     for item in skus:
@@ -65,7 +68,7 @@ class TestCheckOut(unittest.TestCase):
     def test_emptySKUCostsNothing(self):
         self.assertEqual(checkout(""), 0)
 
-    def test_singlePrice(self):
+    def test_singlePrices(self):
         self.assertEqual(checkout('A'), 50)
         self.assertEqual(checkout('B'), 30)
         self.assertEqual(checkout('C'), 20)
@@ -78,6 +81,8 @@ class TestCheckOut(unittest.TestCase):
         self.assertEqual(checkout('J'), 60)
         self.assertEqual(checkout('K'), 80)
         self.assertEqual(checkout('L'), 90)
+        self.assertEqual(checkout('M'), 15)
+        self.assertEqual(checkout('N'), 40)
 
     def test_3AItemsMatchesSpecialOfferPrice(self):
         self.assertEqual(checkout('AAA'), 130)
@@ -124,6 +129,9 @@ class TestCheckOut(unittest.TestCase):
         self.assertEqual(checkout("FFFFF"), checkout("F") * 4)
         self.assertEqual(checkout("FFFFFF"), checkout("F") * 4)
 
+    def test_3NSpecialOfferGivesOneFreeM(self):
+        self.assertEqual(checkout("NNNM"), checkout("NNN"))
+
     def test_5HMatchesSpecialOfferPrice(self):
         self.assertEqual(checkout("HHHHH"), 45)
 
@@ -135,3 +143,4 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
