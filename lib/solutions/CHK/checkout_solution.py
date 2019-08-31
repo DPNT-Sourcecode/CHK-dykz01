@@ -29,9 +29,9 @@ def checkout(skus):
     itemPrices['U'] = {1:40}
     itemPrices['V'] = {1:50, 2:90, 3:130}
     itemPrices['W'] = {1:20}
-    itemPrices['X'] = {1:90}
-    itemPrices['Y'] = {1:10}
-    itemPrices['Z'] = {1:50}
+    itemPrices['X'] = {1:17}
+    itemPrices['Y'] = {1:20}
+    itemPrices['Z'] = {1:21}
 
     itemFreebies = {}
     itemFreebies['E'] = {2:'B'}
@@ -106,9 +106,9 @@ class TestCheckOut(unittest.TestCase):
         self.assertEqual(checkout('U'), 40)
         self.assertEqual(checkout('V'), 50)
         self.assertEqual(checkout('W'), 20)
-        self.assertEqual(checkout('X'), 90)
-        self.assertEqual(checkout('Y'), 10)
-        self.assertEqual(checkout('Z'), 50)
+        self.assertEqual(checkout('X'), 17)
+        self.assertEqual(checkout('Y'), 20)
+        self.assertEqual(checkout('Z'), 21)
 
     def test_multipleItemOffers(self):
         self.assertEqual(checkout('AAA'), 130)
@@ -171,6 +171,7 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
 
