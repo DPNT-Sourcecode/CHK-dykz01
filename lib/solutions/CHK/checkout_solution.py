@@ -129,6 +129,7 @@ def checkout(skus):
 
     removeFreeItems(itemCounts)
     applyItemGroupings(itemCounts)
+    print(itemCounts)
 
     return calculateItemCosts(itemCounts)
 
@@ -234,12 +235,12 @@ class TestCheckOut(unittest.TestCase):
         self.assertEqual(checkout("STXYZ"), 45 + checkout("XY"))
 
     def test_multipleGroupDiscountsAreGiven(self):
-        pass
-#         self.assertEqual(checkout("STXYZTYX"), 90 + checkout("XY"))
+        self.assertEqual(checkout("STXYZTYX"), 90 + checkout("XY"))
 
 
 
 
 if __name__ == '__main__':
     unittest.main()
+
 
