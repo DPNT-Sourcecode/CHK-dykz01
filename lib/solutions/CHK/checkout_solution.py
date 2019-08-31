@@ -21,10 +21,9 @@ def checkout(skus):
         for n in reversed(list(prices.keys())):
             price = prices[n]
 
-            if count >= n:
-                offerCount = count/n
-                totalCost += offerCount * price
-                count -= offerCount * n
+            offerCount = int(count/n)
+            totalCost += offerCount * price
+            count -= offerCount * n
 
     return totalCost
 
@@ -54,8 +53,18 @@ class TestCheckOut(unittest.TestCase):
     def test_multipleASpecialOffsers(self):
         self.assertEqual(checkout("AAAAAAAAA"), checkout("AAA") * 3)
 
+    def test_multipleBSpecialOffsers(self):
+        self.assertEqual(checkout("BBBB"), checkout("BB") * 2)
+
+    def test_mixedAItems(self):
+        self.assertEqual(checkout("AAAAAAA"), checkout("AAA") * 2 + checkout("AA"))
+
+    def test_multipleBSpecialOffsers(self):
+        self.assertEqual(checkout("BBBB"), checkout("BB") * 2)
+
 
 
 
 if __name__ == '__main__':
     unittest.main()
+
