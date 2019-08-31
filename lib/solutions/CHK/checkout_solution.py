@@ -57,12 +57,7 @@ def generateItemCounts(skus):
 
     return itemCounts
 
-def checkout(skus):
-    try:
-        itemCounts = generateItemCounts(skus)
-    except ValueError:
-        return -1
-
+def removeFreeItems(itemCounts):
     itemFreebies = getItemFreebies()
 
     freeItems = {}
@@ -76,7 +71,9 @@ def checkout(skus):
     for item, count in freeItems.items():
         itemCounts[item] = max(0, itemCounts[item] - count)
 
+def calculateItemCost(itemCounts):
     itemPrices = getItemPrices()
+
     totalCost = 0
     for item, count in itemCounts.items():
 
@@ -90,6 +87,14 @@ def checkout(skus):
 
     return totalCost
 
+def checkout(skus):
+    try:
+        itemCounts = generateItemCounts(skus)
+    except ValueError:
+        return -1
+
+    removeFreeItems(itemCounts)
+    return calculateItemCost(itemCounts)
 
 class TestCheckOut(unittest.TestCase):
     def test_invalidSKUItemReturnsMinus1(self):
@@ -189,4 +194,5 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
