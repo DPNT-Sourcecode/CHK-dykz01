@@ -6,7 +6,7 @@ import unittest
 # skus = unicode string
 def checkout(skus):
     itemPrices = {}
-    itemPrices['A'] = {1:50, 3:130}
+    itemPrices['A'] = {1:50, 3:130, 5:200}
     itemPrices['B'] = {1:30, 2:45}
     itemPrices['C'] = {1:20}
     itemPrices['D'] = {1:15}
@@ -61,6 +61,9 @@ class TestCheckOut(unittest.TestCase):
     def test_3AItemsMatchesSpecialOfferPrice(self):
         self.assertEqual(checkout('AAA'), 130)
 
+    def test_5AItemsMatchesSpecialOfferPrice(self):
+        self.assertEqual(checkout('AAAAA'), 200)
+
     def test_2BItemsMatchesSpecialOfferPrice(self):
         self.assertEqual(checkout('BB'), 45)
 
@@ -72,11 +75,11 @@ class TestCheckOut(unittest.TestCase):
         self.assertEqual(checkout("BADC"), checkout("A") + checkout("B") + checkout("C") + checkout("D"))
 
     def test_multipleSpecialOffserAreMultipleOfSpecialOfferPrice(self):
-        self.assertEqual(checkout("AAAAAAAAA"), checkout("AAA") * 3)
+        self.assertEqual(checkout("AAAAAAAAAA"), checkout("AAAAA") * 2)
         self.assertEqual(checkout("BBBB"), checkout("BB") * 2)
 
     def test_mixedOffersAreSumOfSpecialAndIndividualPrices(self):
-        self.assertEqual(checkout("AAAAAAA"), checkout("AAA") * 2 + checkout("A"))
+        self.assertEqual(checkout("AAAAAAA"), checkout("AAAAA") + checkout("AA"))
         self.assertEqual(checkout("BBB"), checkout("BB") + checkout("B"))
 
     def test_mixedSpecialOffersAreSumsOfOffers(self):
@@ -88,10 +91,3 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-
-
-
-
-
-
