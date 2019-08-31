@@ -40,12 +40,13 @@ def getGroupItemPrices():
     itemPrices = getItemPrices()
 
     groupPrices = {}
-    for combination in itertools.combinations("STXYZ", 3):
+    for combination in itertools.combinations_with_replacement("STXYZ", 3):
         regularCost = sum(itemPrices[item][1] for item in combination)
         saving = regularCost - 45
         # FIXME: Using 0 to denote saving from using group
         groupPrices["".join(combination)] = {1:45, 0:saving}
 
+    print(groupPrices)
     return groupPrices
 
 def getItemFreebies():
@@ -226,7 +227,8 @@ class TestCheckOut(unittest.TestCase):
         self.assertEqual(checkout("UUUU"), checkout("UUU"))
 
     def test_groupDiscount(self):
-        for combination in itertools.combinations("STXYZ", 3):
+        for combination in itertools.combinations_with_replacement("STXYZ", 3):
+            print(combination)
             self.assertEqual(checkout("".join(combination)), 45)
 
     def test_maximumGroupDiscount(self):
@@ -240,6 +242,7 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
 
