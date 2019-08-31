@@ -46,7 +46,6 @@ def getGroupItemPrices():
         # FIXME: Using 0 to denote saving from using group
         groupPrices["".join(combination)] = {1:45, 0:saving}
 
-    print(groupPrices)
     return groupPrices
 
 def getItemFreebies():
@@ -88,6 +87,7 @@ def removeFreeItems(itemCounts):
 def applyItemGroupings(itemCounts):
     groupItemPrices = getGroupItemPrices()
     groupsByLargestSaving = sorted(list(groupItemPrices.keys()), key = lambda group: groupItemPrices[group][0], reverse=True)
+    print(groupsByLargestSaving)
 
     for group in groupsByLargestSaving:
 
@@ -128,7 +128,9 @@ def checkout(skus):
         return -1
 
     removeFreeItems(itemCounts)
+    print(itemCounts)
     applyItemGroupings(itemCounts)
+    print(itemCounts)
 
     return calculateItemCosts(itemCounts)
 
@@ -242,10 +244,3 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-
-
-
-
-
-
