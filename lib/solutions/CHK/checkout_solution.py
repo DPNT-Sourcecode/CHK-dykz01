@@ -100,8 +100,6 @@ def applyItemGroupings(itemCounts):
             itemCounts[groupItem] -= groupCount
 
 def calculateItemCosts(itemCounts):
-    applyItemGroupings(itemCounts)
-
     itemPrices = getItemPrices()
     itemPrices.update(**getGroupItemPrices())
 
@@ -128,6 +126,8 @@ def checkout(skus):
         return -1
 
     removeFreeItems(itemCounts)
+    applyItemGroupings(itemCounts)
+
     return calculateItemCosts(itemCounts)
 
 class TestCheckOut(unittest.TestCase):
@@ -228,9 +228,13 @@ class TestCheckOut(unittest.TestCase):
         for combination in itertools.combinations("STXYZ", 3):
             self.assertEqual(checkout("".join(combination)), 45)
 
+    def test_maximumGroupDiscount(self):
+        self.assertEqual(checkout("STXYZ"), 45 + checkout("XY"))
+
 
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
