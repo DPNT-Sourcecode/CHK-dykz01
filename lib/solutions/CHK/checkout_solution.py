@@ -29,6 +29,9 @@ def checkout(skus):
 
 
 class TestCheckOut(unittest.TestCase):
+    def test_emptySKU(self):
+        self.assertEqual(checkout(""), 0)
+
     def test_singleAPrice(self):
         self.assertEqual(checkout('A'), 50)
 
@@ -56,15 +59,18 @@ class TestCheckOut(unittest.TestCase):
     def test_multipleBSpecialOffsers(self):
         self.assertEqual(checkout("BBBB"), checkout("BB") * 2)
 
-    def test_mixedAItems(self):
-        self.assertEqual(checkout("AAAAAAA"), checkout("AAA") * 2 + checkout("AA"))
+    def test_mixedAOffers(self):
+        self.assertEqual(checkout("AAAAAAA"), checkout("AAA") * 2 + checkout("A"))
 
     def test_multipleBSpecialOffsers(self):
         self.assertEqual(checkout("BBBB"), checkout("BB") * 2)
 
+    def test_mixedBOffers(self):
+        self.assertEqual(checkout("BBB"), checkout("BB") + checkout("B"))
 
 
 
 if __name__ == '__main__':
     unittest.main()
+
 
