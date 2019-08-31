@@ -90,16 +90,28 @@ def applyItemGroupings(itemCounts):
 
     for group in groupsByLargestSaving:
 
-        groupCounts = {}
-        for groupItem in set(group):
-            groupCounts[groupItem] = itemCounts[groupItem]
+        while True:
+            groupCounts = collections.defaultdict(int)
 
-        minItem = min(groupCounts.keys(), key = lambda v: groupCounts[v])
-        groupCount = int(groupCounts[minItem]/group.count(minItem))
-        itemCounts[group] = groupCount
+            for groupItem in group:
+                if itemCounts[groupItem]:
+                    groupCounts[groupItem] += 1
+                    itemCounts[groupItem] -= 1
+                else:
+                    itemCounts.update(**groupCounts)
+                    break
+            else:
+                itemCounts[group] += 1
+                continue
 
-        for groupItem in group:
-            itemCounts[groupItem] -= groupCount
+            break
+
+#         minItem = min(groupCounts.keys(), key = lambda v: groupCounts[v])
+#         groupCount = int(groupCounts[minItem]/group.count(minItem))
+#         itemCounts[group] = groupCount
+# 
+#         for groupItem in group:
+#             itemCounts[groupItem] -= groupCount
 
 def calculateItemCosts(itemCounts):
     itemPrices = getItemPrices()
@@ -235,7 +247,7 @@ class TestCheckOut(unittest.TestCase):
         self.assertEqual(checkout("STXYZ"), 45 + checkout("XY"))
 
     def test_multipleGroupDiscountsAreGiven(self):
-        checkout("XY")
+        print(checkout("XY"))
 #         self.assertEqual(checkout("STXYZTYX"), 90 + checkout("XY"))
 
 
@@ -243,3 +255,4 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
