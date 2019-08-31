@@ -43,6 +43,7 @@ def getGroupItemPrices():
     for combination in itertools.combinations("STXYZ", 3):
         regularCost = sum(itemPrices[item][1] for item in combination)
         saving = regularCost - 45
+        # FIXME: Using 0 to denote saving from using group
         groupPrices["".join(combination)] = {1:45, 0:saving}
 
     return groupPrices
@@ -239,6 +240,7 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
 
