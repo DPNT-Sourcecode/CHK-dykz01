@@ -83,7 +83,7 @@ def removeFreeItems(itemCounts):
     for item, count in freeItems.items():
         itemCounts[item] = max(0, itemCounts[item] - count)
 
-def applyItemGroupings(itemCounts)
+def applyItemGroupings(itemCounts):
     groupItemPrices = getGroupItemPrices()
     groups = sorted(list(groupItemPrices.keys()), key = lambda group: groupItemPrices[group][0], reverse=True)
 
@@ -103,12 +103,16 @@ def calculateItemCosts(itemCounts):
     applyItemGroupings(itemCounts)
 
     itemPrices = getItemPrices()
+    itemPrices.update(**getGroupItemPrices())
 
     totalCost = 0
     for item, count in itemCounts.items():
 
         prices = itemPrices[item]
         for n in reversed(list(prices.keys())):
+            if n == 0:
+                continue
+
             price = prices[n]
 
             offerCount = int(count/n)
@@ -222,11 +226,11 @@ class TestCheckOut(unittest.TestCase):
 
     def test_groupDiscount(self):
         for combination in itertools.combinations("STXYZ", 3):
-            print(combination)
             self.assertEqual(checkout("".join(combination)), 45)
 
 
 
 if __name__ == '__main__':
     unittest.main()
+
 
