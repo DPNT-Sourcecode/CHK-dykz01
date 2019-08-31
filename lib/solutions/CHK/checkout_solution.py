@@ -29,6 +29,11 @@ def checkout(skus):
 
 
 class TestCheckOut(unittest.TestCase):
+    def test_invalidSKUItemReturnsMinus1(self):
+        self.assertEqual(checkout("AB32"), -1)
+        self.assertEqual(checkout("ABc"), -1)
+        self.assertEqual(checkout("AB!"), -1)
+
     def test_emptySKUCostsNothing(self):
         self.assertEqual(checkout(""), 0)
 
@@ -63,22 +68,21 @@ class TestCheckOut(unittest.TestCase):
 
     def test_mixedOffersAreSumOfSpecialAndIndividualPrices(self):
         self.assertEqual(checkout("AAAAAAA"), checkout("AAA") * 2 + checkout("A"))
-        self.assertEqual(checkout("BBBB"), checkout("BB") * 2)
-
-    def test_mixedBOffers(self):
         self.assertEqual(checkout("BBB"), checkout("BB") + checkout("B"))
 
-    def test_mixedOffsers(self):
+    def test_mixedSpecialOffersAreSumsOfOffers(self):
         self.assertEqual(checkout("ABABA"), checkout("BB") + checkout("AAA"))
 
-    def test_mixedItems(self):
+    def test_mixedItemsAreSumed(self):
         self.assertEqual(checkout("ABCCABADDA"), checkout("BB") + checkout("AAA") + checkout("A") + checkout("CC") + checkout("DD"))
+    §dd
 
 
 
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
 
