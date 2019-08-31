@@ -36,7 +36,7 @@ def getItemPrices():
 
     return itemPrices
 
-def getGroupItemPrices(self):
+def getGroupItemPrices():
     itemPrices = getItemPrices()
 
     groupPrices = {}
@@ -84,13 +84,16 @@ def removeFreeItems(itemCounts):
         itemCounts[item] = max(0, itemCounts[item] - count)
 
 def applyItemGroupings(itemCounts, itemPrices):
-    print(getGroupItemPrices())
+    groupItemPrices = getGroupItemPrices()
+    groups = sorted(list(groupItemPrices.keys()), key = lambda group: groupItemPrices[group][0], reverse=True)
+    print(list(groups))
+
 
 
 def calculateItemCosts(itemCounts):
     itemPrices = getItemPrices()
 
-    applyItemGroupings()
+    applyItemGroupings(itemCounts, itemPrices)
     totalCost = 0
     for item, count in itemCounts.items():
 
@@ -216,4 +219,5 @@ class TestCheckOut(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
